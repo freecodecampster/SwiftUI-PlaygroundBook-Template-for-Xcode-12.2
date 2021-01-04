@@ -6,21 +6,28 @@
 //
 
 import UIKit
+import SwiftUI
 import PlaygroundSupport
 
-/// Instantiates a new instance of a live view.
-///
-/// By default, this loads an instance of `LiveViewController` from `LiveView.storyboard`.
-public func instantiateLiveView() -> PlaygroundLiveViewable {
-    let storyboard = UIStoryboard(name: "LiveView", bundle: nil)
+/// Instantiates a new instance of a SwiftUI live view. UIViewController PlaygroundLiveViewable protocol implemented in LiveViewController.swift
+public func instantiateSwiftUILiveView() -> PlaygroundLiveViewable {
+    
+    /// Create a UIHostingController to add a SwiftUI View to UIKit, returns a UIViewController
+    let hostingControllerSwiftUI = UIHostingController(rootView: PlaygroundView()) as UIViewController
 
-    guard let viewController = storyboard.instantiateInitialViewController() else {
-        fatalError("LiveView.storyboard does not have an initial scene; please set one or update this function")
+    return hostingControllerSwiftUI
+}
+
+public struct PlaygroundView: View {
+    
+    public init() {}
+
+    public var body: some View {
+        Button(
+            action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/,
+            label: {
+            Text("SwiftUIViewController")
+            }
+        )
     }
-
-    guard let liveViewController = viewController as? LiveViewController else {
-        fatalError("LiveView.storyboard's initial scene is not a LiveViewController; please either update the storyboard or this function")
-    }
-
-    return liveViewController
 }
